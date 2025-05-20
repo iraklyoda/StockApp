@@ -1,4 +1,4 @@
-package com.iraklyoda.stockapp.ui.theme
+package com.iraklyoda.stockapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

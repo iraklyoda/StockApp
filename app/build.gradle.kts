@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +7,9 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
 }
+
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "com.iraklyoda.stockapp"
@@ -21,10 +26,25 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            type = "String",
+            name = "ALPHA_VANTAGE_API_KEY",
+            value = "\"${properties.getProperty("ALPHA_VANTAGE_API_KEY")}\""
+
+        )
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                name = "BASE_URL", type = "String", value = "\"https://alphavantage.co/\""
+            )
+        }
         release {
+            buildConfigField(
+                name = "BASE_URL", type = "String", value = "\"https://alphavantage.co/\""
+            )
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -32,6 +52,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -41,6 +62,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"

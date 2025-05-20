@@ -1,4 +1,4 @@
-package com.iraklyoda.stockapp.ui.theme
+package com.iraklyoda.stockapp.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
